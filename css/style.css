@@ -1,0 +1,560 @@
+/* ========================================
+   CINEPHILE VAULT - RETRO AESTHETIC STYLESHEET
+   Warm pastels, retro vibes, playful design
+   ======================================== */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* CSS Variables - Warm Retro Color Palette */
+:root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #4ecdc4;
+    --accent-yellow: #ffe66d;
+    --accent-peach: #ffb4a2;
+    --accent-green: #b8e994;
+    --bg-cream: #fff5e4;
+    --bg-pink: #ffd1dc;
+    --text-dark: #2d3436;
+    --text-light: #636e72;
+    --card-bg: #fff9f0;
+    --border-radius: 20px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow: 0 8px 24px rgba(255, 107, 107, 0.15);
+}
+
+/* Body Styling - Warm Gradient Background */
+body {
+    font-family: 'Segoe UI', 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ffd1dc 100%);
+    background-attachment: fixed;
+    color: var(--text-dark);
+    min-height: 100vh;
+    line-height: 1.6;
+    position: relative;
+}
+
+/* Decorative background pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255, 230, 109, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(78, 205, 196, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(255, 180, 162, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ========================================
+   HEADER SECTION - Retro Style
+   ======================================== */
+
+header {
+    background: var(--card-bg);
+    padding: 1.5rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    border-bottom: 4px solid var(--primary-color);
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-shadow: 3px 3px 0px var(--accent-yellow);
+    letter-spacing: -1px;
+    position: relative;
+}
+
+.logo::after {
+    content: '✨';
+    position: absolute;
+    right: -30px;
+    top: -10px;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-btn {
+    padding: 0.8rem 2rem;
+    border: 3px solid var(--text-dark);
+    background: var(--accent-yellow);
+    color: var(--text-dark);
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: var(--transition);
+    box-shadow: 4px 4px 0px var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--text-dark);
+}
+
+.nav-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* ========================================
+   SEARCH SECTION - Playful Design
+   ======================================== */
+
+.search-section {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.search-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.search-box {
+    flex: 1;
+    display: flex;
+    background: var(--card-bg);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 3px solid var(--text-dark);
+}
+
+#searchInput {
+    flex: 1;
+    padding: 1.2rem 2rem;
+    border: none;
+    background: transparent;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    outline: none;
+    font-weight: 600;
+}
+
+#searchInput::placeholder {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.search-btn {
+    padding: 1.2rem 2.5rem;
+    background: var(--secondary-color);
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 800;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.search-btn:hover {
+    background: var(--primary-color);
+    transform: scale(1.05);
+}
+
+/* ========================================
+   FILTERS SECTION - Retro Pills
+   ======================================== */
+
+.filters {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 3px solid var(--text-dark);
+    box-shadow: var(--shadow);
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.filter-group label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+select {
+    padding: 0.7rem 1.5rem;
+    background: white;
+    color: var(--text-dark);
+    border: 3px solid var(--text-dark);
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: 3px 3px 0px var(--text-dark);
+}
+
+select:hover {
+    background: var(--accent-yellow);
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px var(--text-dark);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+}
+
+/* ========================================
+   MAIN CONTENT AREA
+   ======================================== */
+
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-dark);
+    font-weight: 900;
+    text-shadow: 4px 4px 0px var(--accent-peach);
+    letter-spacing: -1px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60%;
+    height: 6px;
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+/* ========================================
+   MOVIES GRID
+   ======================================== */
+
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+/* ========================================
+   MOVIE CARD STYLING - Retro Aesthetic
+   ======================================== */
+
+.movie-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    border: 4px solid var(--text-dark);
+    box-shadow: 6px 6px 0px var(--text-dark);
+}
+
+.movie-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0px var(--text-dark);
+}
+
+.movie-card:hover .movie-poster {
+    transform: scale(1.05);
+}
+
+.movie-poster {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+    transition: var(--transition);
+}
+
+.movie-info {
+    padding: 1.5rem;
+    background: var(--card-bg);
+}
+
+.movie-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+    color: var(--text-dark);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.3;
+}
+
+.movie-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--text-dark);
+    background: var(--accent-yellow);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    border: 2px solid var(--text-dark);
+}
+
+.year {
+    color: var(--text-light);
+    background: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    border: 2px solid var(--text-dark);
+}
+
+/* Card Action Buttons - Retro Style */
+.card-actions {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 0.8rem;
+    border: 3px solid var(--text-dark);
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 800;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 3px 3px 0px var(--text-dark);
+}
+
+.action-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px var(--text-dark);
+}
+
+.add-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+.add-btn:hover {
+    background: var(--accent-peach);
+    color: var(--text-dark);
+}
+
+.view-btn {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.view-btn:hover {
+    background: var(--accent-green);
+    color: var(--text-dark);
+}
+
+/* ========================================
+   LOADING & EMPTY STATES - Playful
+   ======================================== */
+
+.loading,
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-dark);
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    border: 4px solid var(--text-dark);
+    box-shadow: var(--shadow);
+}
+
+.loading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+.empty-state {
+    font-size: 1.2rem;
+}
+
+.empty-state h3 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-weight: 900;
+    text-shadow: 3px 3px 0px var(--accent-yellow);
+}
+
+/* Placeholder for movies without posters */
+.no-poster {
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(135deg, var(--accent-peach) 0%, var(--accent-yellow) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    border-bottom: 4px solid var(--text-dark);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablets and small screens */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+    }
+
+    .logo::after {
+        right: -25px;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    .movies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .movie-poster {
+        height: 240px;
+    }
+
+    .no-poster {
+        height: 240px;
+        font-size: 3rem;
+    }
+
+    .filters {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    header {
+        padding: 1rem;
+    }
+
+    main,
+    .search-section {
+        padding: 1rem;
+    }
+
+    .nav-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        text-shadow: 2px 2px 0px var(--accent-peach);
+    }
+
+    .movie-title {
+        font-size: 1rem;
+    }
+
+    .movie-card {
+        border: 3px solid var(--text-dark);
+        box-shadow: 4px 4px 0px var(--text-dark);
+    }
+
+    .movie-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0px var(--text-dark);
+    }
+
+    .action-btn {
+        font-size: 0.75rem;
+        padding: 0.6rem;
+    }
+}
