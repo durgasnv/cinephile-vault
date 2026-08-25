@@ -13,7 +13,14 @@ const sortFilter = document.getElementById('sortFilter');
 
 // State
 let currentView = 'all';
-let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+let watchlist;
+try {
+    watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+    if (!Array.isArray(watchlist)) watchlist = [];
+} catch (error) {
+    console.warn('Corrupted watchlist data, resetting:', error);
+    watchlist = [];
+}
 let currentMovies = [];
 
 // Initialize
@@ -122,6 +129,16 @@ function displayWatchlist() {
     });
 }
 
+// Escape text for safe interpolation into HTML
+function escapeHtml(text) {
+    return String(text ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 // Create Movie Card
 function createMovieCard(movie, isInWatchlist) {
     const card = document.createElement('div');
@@ -139,13 +156,15 @@ function createMovieCard(movie, isInWatchlist) {
         ? movie.vote_average.toFixed(1) 
         : 'N/A';
 
+    const safeTitle = escapeHtml(movie.title);
+
     card.innerHTML = `
         ${posterPath 
-            ? `<img src="${posterPath}" alt="${movie.title}" class="movie-poster">` 
+            ? `<img src="${posterPath}" alt="${safeTitle}" class="movie-poster">` 
             : `<div class="no-poster">🎬</div>`
         }
         <div class="movie-info">
-            <h3 class="movie-title">${movie.title}</h3>
+            <h3 class="movie-title">${safeTitle}</h3>
             <div class="movie-details">
                 <span class="rating">⭐ ${rating}</span>
                 <span class="year">${year}</span>
@@ -153,7 +172,7 @@ function createMovieCard(movie, isInWatchlist) {
             <div class="card-actions">
                 ${isInWatchlist 
                     ? `<button class="action-btn add-btn" onclick="removeFromWatchlist(${movie.id})">Remove</button>` 
-                    : `<button class="action-btn add-btn" onclick="addToWatchlist(${movie.id}, '${movie.title.replace(/'/g, "\\'")}', '${movie.poster_path || ''}', '${movie.release_date || ''}', ${movie.vote_average || 0})">+ Watchlist</button>`
+                    : `<button class="action-btn add-btn" onclick="addToWatchlist(${movie.id})">+ Watchlist</button>`
                 }
                 <button class="action-btn view-btn" onclick="viewDetails(${movie.id})">Details</button>
             </div>
@@ -164,20 +183,23 @@ function createMovieCard(movie, isInWatchlist) {
 }
 
 // Add to Watchlist
-function addToWatchlist(id, title, poster_path, release_date, vote_average) {
-    const movie = {
-        id,
-        title,
-        poster_path,
-        release_date,
-        vote_average
-    };
-    
-    if (watchlist.some(m => m.id === id)) {
+function addToWatchlist(movieId) {
+    if (watchlist.some(m => m.id === movieId)) {
         alert('This movie is already in your watchlist!');
         return;
     }
-    
+
+    const found = currentMovies.find(m => m.id === movieId);
+    if (!found) return;
+
+    const movie = {
+        id: found.id,
+        title: found.title,
+        poster_path: found.poster_path,
+        release_date: found.release_date,
+        vote_average: found.vote_average
+    };
+
     watchlist.push(movie);
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
     
@@ -185,7 +207,7 @@ function addToWatchlist(id, title, poster_path, release_date, vote_average) {
         displayMovies(currentMovies);
     }
     
-    alert(`"${title}" added to your watchlist! 🎉`);
+    alert(`"${movie.title}" added to your watchlist! 🎉`);
 }
 
 // Remove from Watchlist
