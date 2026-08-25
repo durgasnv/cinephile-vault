@@ -10,6 +10,23 @@
     box-sizing: border-box;
 }
 
+/* Form controls inherit the page font instead of browser defaults */
+button,
+input,
+select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+::selection {
+    background: var(--accent-yellow);
+    color: var(--text-dark);
+}
+
 /* CSS Variables - Warm Retro Color Palette */
 :root {
     --primary-color: #ff6b6b;
@@ -25,6 +42,8 @@
     --border-radius: 20px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --shadow: 0 8px 24px rgba(255, 107, 107, 0.15);
+    --focus-ring: 0 0 0 4px rgba(255, 107, 107, 0.25);
+    color-scheme: light;
 }
 
 /* Body Styling - Warm Gradient Background */
@@ -36,6 +55,15 @@ body {
     min-height: 100vh;
     line-height: 1.6;
     position: relative;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: clip;
+}
+
+/* Consistent keyboard focus indicator */
+:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
 }
 
 /* Decorative background pattern */
@@ -59,12 +87,13 @@ body::before {
    ======================================== */
 
 header {
-    background: var(--card-bg);
+    background: rgba(255, 249, 240, 0.85);
     padding: 1.5rem 2rem;
     position: sticky;
     top: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 4px solid var(--primary-color);
     box-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
 }
@@ -167,6 +196,7 @@ header {
 
 #searchInput {
     flex: 1;
+    min-width: 0;
     padding: 1.2rem 2rem;
     border: none;
     background: transparent;
@@ -174,6 +204,12 @@ header {
     font-size: 1.1rem;
     outline: none;
     font-weight: 600;
+}
+
+/* Glow the whole pill while typing (input itself has no outline) */
+.search-box:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: var(--focus-ring), var(--shadow);
 }
 
 #searchInput::placeholder {
@@ -196,7 +232,10 @@ header {
 
 .search-btn:hover {
     background: var(--primary-color);
-    transform: scale(1.05);
+}
+
+.search-btn:active {
+    transform: scale(0.97);
 }
 
 /* ========================================
@@ -230,8 +269,8 @@ header {
 }
 
 select {
-    padding: 0.7rem 1.5rem;
-    background: white;
+    padding: 0.7rem 2.8rem 0.7rem 1.5rem;
+    background-color: white;
     color: var(--text-dark);
     border: 3px solid var(--text-dark);
     border-radius: 50px;
@@ -240,10 +279,16 @@ select {
     font-weight: 600;
     transition: var(--transition);
     box-shadow: 3px 3px 0px var(--text-dark);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232d3436' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.1rem center;
+    background-size: 0.9em;
 }
 
 select:hover {
-    background: var(--accent-yellow);
+    background-color: var(--accent-yellow);
     transform: translate(1px, 1px);
     box-shadow: 2px 2px 0px var(--text-dark);
 }
@@ -251,7 +296,7 @@ select:hover {
 select:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+    box-shadow: var(--focus-ring);
 }
 
 /* ========================================
@@ -556,5 +601,25 @@ main {
     .action-btn {
         font-size: 0.75rem;
         padding: 0.6rem;
+    }
+
+    .movie-info {
+        padding: 1.1rem;
+    }
+
+    .card-actions {
+        gap: 0.6rem;
+    }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
